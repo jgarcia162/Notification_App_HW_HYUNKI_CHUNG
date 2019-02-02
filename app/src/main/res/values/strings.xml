@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Giphy Notification App with RecyclerView </string>
+    <string name="send_notification">send notification</string>
+    <string name="cats">Cats</string>
+    <string name="dogs">Dogs</string>
+    <string name="which_do_you_prefer">Which do you prefer?</string>
+    <string name="next">next</string>
+    <string name="gif">gif</string>
+    <string name="other">Other</string>
+</resources>
