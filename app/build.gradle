@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "API_KEY_GIPHY", "\""+getGiphyApiKey()+"\""
     }
     buildTypes {
         release {
@@ -16,6 +17,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+//this function get us the api key from the local.properties file. Since this file is included in .gitignore, it won't be committed and pushed up to your repo, so your API key stays safe. Keep in mind that when you build your app, the .apk file will contain this key so it can still be de-compiled and accessed, there are other methods to try and hide the API key but as of yet there is no 100% sure-fire way to do so. Not that I know of at least.
+def getGiphyApiKey() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    return properties.getProperty("giphyApiKey")
 }
 
 dependencies {

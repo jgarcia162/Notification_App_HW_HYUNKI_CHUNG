@@ -76,8 +76,7 @@ public class NotificationActivity extends AppCompatActivity {
     private void createNotificationChannel() {
         mNotifyManager = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >=
-                android.os.Build.VERSION_CODES.O) {
+        //the minSdk is set to 28 so no need to check for API version
             // Create a NotificationChannel
             NotificationChannel notificationChannel = new NotificationChannel(PRIMARY_CHANNEL_ID,
                     "Giphy App Notification", NotificationManager
@@ -88,7 +87,6 @@ public class NotificationActivity extends AppCompatActivity {
             notificationChannel.enableVibration(true);
             notificationChannel.setDescription("Notification from Giphy Application");
             mNotifyManager.createNotificationChannel(notificationChannel);
-        }
     }
 
     private void sendNotifications() {
@@ -107,20 +105,19 @@ public class NotificationActivity extends AppCompatActivity {
                 (this, NOTIFICATION_ID, dismissIntent, PendingIntent.FLAG_ONE_SHOT);
 
         Intent intent = getIntent();
-        NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(this, PRIMARY_CHANNEL_ID)
+        return new NotificationCompat.Builder(this, PRIMARY_CHANNEL_ID)
                 .setContentTitle("Notification from Giphy App")
                 .setContentText("You have sent a notification from the gif titled: " + intent.getStringExtra("gifTitle"))
                 .setSmallIcon(R.drawable.ic_gif)
                 .setContentIntent(notificationPendingIntent)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setDefaults(NotificationCompat.DEFAULT_ALL);
-        notifyBuilder.setDeleteIntent(dismissPendingIntent);
-        return notifyBuilder;
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setDeleteIntent(dismissPendingIntent);
     }
 
     private void toast() {
-        Toast.makeText(this, "You have already sent a notification from here!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.notification_already_sent, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -1,5 +1,6 @@
 package android.pursuit.org.giphy.controller;
 
+import android.pursuit.org.giphy.model.GifData;
 import android.pursuit.org.giphy.view.GifViewHolder;
 import android.pursuit.org.giphy.R;
 import android.support.annotation.NonNull;
@@ -12,12 +13,10 @@ import java.util.List;
 
 public class GifAdapter extends RecyclerView.Adapter<GifViewHolder> {
 
-    private final List<String> gifList;
-    private final List<String> gifTitles;
+    private final List<GifData> gifList;
 
-    public GifAdapter(List<String> gifList, List<String> giftitles) {
+    public GifAdapter(List<GifData> gifList) {
         this.gifList = gifList;
-        this.gifTitles = giftitles;
     }
 
     @NonNull
@@ -29,13 +28,11 @@ public class GifAdapter extends RecyclerView.Adapter<GifViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull GifViewHolder gifViewHolder, int i) {
-        String gifUrl = gifList.get(i);
-        String gifTitle = gifTitles.get(i);
-        gifViewHolder.onBind(gifUrl, gifTitle);
+        gifViewHolder.onBind(gifList.get(i).getDownsizedUrl(), gifList.get(i).getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return gifList.size();
+        return 20;
     }
 }

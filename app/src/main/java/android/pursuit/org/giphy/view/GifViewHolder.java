@@ -1,15 +1,9 @@
 package android.pursuit.org.giphy.view;
 
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.pursuit.org.giphy.MainActivity;
 import android.pursuit.org.giphy.NotificationActivity;
-import android.pursuit.org.giphy.PreActivity;
 import android.pursuit.org.giphy.R;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -26,7 +20,6 @@ public class GifViewHolder extends RecyclerView.ViewHolder {
     private final ImageView gifView;
     private final TextView gifTitleView;
     private Intent intent;
-    private SharedPreferences sharedPreferences;
 
     public GifViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -57,12 +50,10 @@ public class GifViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 intent = new Intent(itemView.getContext(), NotificationActivity.class);
-
                 intent.putExtra("gifUrl", gifUrl);
                 intent.putExtra("gifTitle", gifTitle);
                 itemView.getContext().startActivity(intent);
             }
         });
-//        gifView.setContentDescription(gifItem.getUrl());
     }
 }

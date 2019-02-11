@@ -7,4 +7,7 @@
     <string name="next">next</string>
     <string name="gif">gif</string>
     <string name="other">Other</string>
+    <string name="notification_already_sent">You have already sent a notification from here!</string>
+    <string name="toast_error">please enter something!</string>
+    <string name="toast_no_results">your query returned no results!</string>
 </resources>

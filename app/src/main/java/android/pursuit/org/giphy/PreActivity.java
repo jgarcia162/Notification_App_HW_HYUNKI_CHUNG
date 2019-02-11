@@ -16,18 +16,18 @@ import android.widget.Toast;
 public class PreActivity extends AppCompatActivity {
     private String queryChoice;
     private boolean isOther = false;
+    private EditText otherEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre);
-        final Intent intent = new Intent(PreActivity.this,MainActivity.class);
-        final EditText otherText = findViewById(R.id.other_editText);
+        final Intent intent = new Intent(PreActivity.this, MainActivity.class);
+        otherEditText = findViewById(R.id.other_editText);
         Button nextButton = findViewById(R.id.nextButton);
         RadioButton dogs = findViewById(R.id.radioButton_Dogs);
         RadioButton cats = findViewById(R.id.radioButton_Cats);
         final RadioButton other = findViewById(R.id.radioButton_Other);
-
 
 
         dogs.setOnClickListener(new View.OnClickListener() {
@@ -56,17 +56,17 @@ public class PreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(isOther){
-                    queryChoice = otherText.getText().toString();
+                if (isOther) {
+                    queryChoice = otherEditText.getText().toString();
                 }
 
-                if(queryChoice != null) {
+                if (queryChoice != null) {
 
                     intent.putExtra("query", queryChoice);
                     startActivityForResult(intent, 456);
 
-                }else{
-                    Toast.makeText(PreActivity.this, "please enter something!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PreActivity.this, R.string.toast_error, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -76,8 +76,8 @@ public class PreActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == 123) {
-            Toast.makeText(getApplicationContext(), "your query returned no results!", Toast.LENGTH_SHORT).show();
+        if (resultCode == 123) {
+            Toast.makeText(getApplicationContext(), R.string.toast_no_results, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -85,7 +85,7 @@ public class PreActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString("queryChoice",queryChoice);
+        savedInstanceState.putString("queryChoice", queryChoice);
     }
 
     @Override
@@ -95,32 +95,30 @@ public class PreActivity extends AppCompatActivity {
     }
 
     private void onRadioButtonClicked(View view) {
-        boolean checked = ((RadioButton)view).isChecked();
+        boolean checked = ((RadioButton) view).isChecked();
 
-        EditText eo = findViewById(R.id.other_editText);
-
-        switch(view.getId()) {
+        switch (view.getId()) {
 
             case R.id.radioButton_Dogs:
 
                 if (checked)
                     queryChoice = "dogs";
                 isOther = false;
-                eo.setVisibility(View.INVISIBLE);
-                    break;
+                otherEditText.setVisibility(View.INVISIBLE);
+                break;
 
             case R.id.radioButton_Cats:
 
                 if (checked)
                     queryChoice = "cats";
                 isOther = false;
-                eo.setVisibility(View.INVISIBLE);
-                    break;
+                otherEditText.setVisibility(View.INVISIBLE);
+                break;
 
             case R.id.radioButton_Other:
                 if (checked) {
                     isOther = true;
-                    eo.setVisibility(View.VISIBLE);
+                    otherEditText.setVisibility(View.VISIBLE);
                 }
                 break;
         }

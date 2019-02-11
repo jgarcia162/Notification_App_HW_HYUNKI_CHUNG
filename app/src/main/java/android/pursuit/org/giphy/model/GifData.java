@@ -12,4 +12,9 @@ public class GifData {
         return title;
     }
 
+    //remember you can always modify your objects to give you the info you want easier.
+    public String getDownsizedUrl() {
+        return getImages().getDownsized().geturl();
+    }
+
 }
